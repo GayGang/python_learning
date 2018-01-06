@@ -47,13 +47,11 @@ print(testIntB)
 
 
 # 布尔值 True / False
-
+# None 和 False 不一样
 
 
 
 # --------------String------------
-print('%2d-%02d' % (3, 1))
-print('%.2f' % 3.1415926)
 
 ord('中') #返回 unicode 编码对应的十进制数
 chr(66)   #返回 unicode 编码十进制数对应的字符(串)
@@ -79,65 +77,114 @@ print('str:{0},bytes:{1},decodeStr:{2},charsCount:{3},bytes:{4}'.format(enStr,en
 # 字符串格式化输出, 不知道什么类型就用字符串类型 %s
 percentNum = (85 - 72) * 100 / 72
 print('{0} 比去年多考了 {1:.1f}%'.format('小白', percentNum))
+print('空格:{0:4d},添0:{1:04d}'.format(22,22))
 
 
-# Boolean and None
+# ------------list 和 tuple-------------
+# 元素可以是不同类型
+# list : 有序的数组, 元素的指向是可以变的,即可变的
+# tuple : 元素的指向是不能变的, 即不可变 , 如果想要定义一个完全不能变的 tuple, 那么他的元素也不能变化
+
+firstList = ['Ford',3000,True]
+# 操作
+firstList.append('凯迪拉克')
+firstList.insert(0,'通用')
+popElement = firstList.pop()
+print('popElement is {0}'.format(popElement))
+
+popElement = firstList.pop(0)
+print('popElement is {0}'.format(popElement))
+print('the last element is %s' % firstList[-1])
 
 
-# if statement, using : replace {} enrolling block
+firstTuple = ('Honda',2000,False)
+secTuple = ('Mazzida',) # 定义单个元素的tuple 记得加上 ,
+thrTuple = ('Club',['man_city',1])
+
+print('the tuple is : {0}'.format(thrTuple))
+
+# thrTuple[-1] = ['kdb'] 这个是不行的 TypeError: 'tuple' object does not support item assignment 意味着元素指向是不变的
+thrTuple[-1][1] = 'Champion'
+print('after changing the tuple is : {0}'.format(thrTuple))
+
+
+
+# ------------if statement, using : replace {} enrolling block-----------
 # true and false values,just like OC
-if 0:
-    print("0 is true")
+
+if '':
+    print('空字符串')
 else:
-    print("0 is false")
+    print('空字符是 False')
 
-if 0 and 1:
-    print("0 and 1 is true")
+if []:
+    print('空数组')
+else:
+    print('空数组是 False')
 
-if 0 or 1:
-    print("0 or 1 is true")
+if ():
+    print('空元组')
+else:
+    print('空元组是 False')
 
-if not 0 and 1:
-    print("0 and 1 is not true")
+if None:
+    print('None')
+else:
+    print('None是 False')
 
 
 
-# for loops
-# 实际上 range(arg1,arg2,arg3)会被转换成一个 List
-for index in range(10):
+# --------------- for loops for x in range / list --------------
+# 实际上 range(start,stop,interval) 从 start 开始(会等于 start),在 stop 前停止(不会等于 stop)
+listFromRange = list(range(5,15,4))
+print('list from range is :{0}'.format(listFromRange))
+
+for index in range(4):
+    print("index is {0}".format(index))
+print("--------")
+
+for index in range(1, 3):
     print("index is {0}".format(index))
 
 print("--------")
-for index in range(5, 10):
+for index in range(5, 10, 6):
     print("index is {0}".format(index))
 
-print("--------")
 
-for index in range(5, 10, 2):
-    print("index is {0}".format(index))
 
-# Dictionary
-# 为不存在的key 设置默认值,避免KeyError
+
+
+# --------- Dictionary  Set ------------
+# Dictionary : key-value, 空间换时间,因为既要存储key 也要存储 value
+#              为了保证 hash 的正确性, key 一定要保证是不可变的.例如 String / Int
+# set 无序 无重复的集合 , 为了保证元素的无重复性, 加入的元素一定要是不可变的
+# 避免 KeyError
 
 student = {
     "name": "DengXiaoBai",
     "age": 11
 }
 
-print(student.get("last_name", "Idiot"))
+# 删除某个 key, 对应的 value 也会被删除
+testKey = 'name'
+student.pop(testKey)
+print('after pop student is {0}'.format(student))
+# 判断有没有这个 key
 
-# exceptions
-try:
-    lastName = student["aa"]
-except KeyError:
-    print("Error finding aa")
-except TypeError as error:
-    print("Type Error")
-    print("error message same as not handled {0}".format(error))
+if testKey in student:
+    print(student[testKey])
 
-except Exception:  # 不推荐这么做,因为我们总是想知道具体的exception
-    print("handle all exceptions")
+# 设置默认值 , 默认是 None
+print('name is {0}'.format(student.get(testKey)))
 
 
-# Other Date Types
+# set 无序 无重复的集合 , 为了保证元素的无重复性, 加入的元素一定要是不可变的
+set1 = set(['1',True,3333])  # 把里面的元素加入 set
+set2 = set(('1',True,6666))
+# set1.add(('KDB',['python'])) TypeError: unhashable type: 'list'
 
+# 交集
+print('交集: {0}'.format(set1 & set2))
+
+# 合集
+print('合集: {0}'.format(set1 | set2))
