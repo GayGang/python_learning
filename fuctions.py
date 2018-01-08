@@ -66,15 +66,11 @@ for index in range(4):
 save_to_file()
 
 
-
 add2Nums = lambda x, y : x + y
 
 
 print(add2Nums(1, 5))
 
-
-######### Confused  Part ############
-# yield
 
 
 
